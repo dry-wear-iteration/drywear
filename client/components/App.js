@@ -27,11 +27,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
-    // When component mounts, check if there is a current browser session. If there is not, redirect user to
-    // sign in page (which has a link to sign up). If there is a session, the following logic holds true:
-    axios.get('')
-
     // When component mounts, set today's outfit
     axios.get('/api/outfits/today')
     .then(response => {
