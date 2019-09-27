@@ -35,7 +35,7 @@ userController.verifyUser = (req, res, next) => {
 }
 
 userController.createUser = (req, res, next) => {
-    const password = req.body.password;
+    const { username, password } = req.body;
 
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
         if(err) return next({
@@ -49,9 +49,10 @@ userController.createUser = (req, res, next) => {
                 message: { err: 'userController.createUser: ERROR: Check server logs for details'}
             });
 
-            const queryArr = [req.body.username, bcryptPassword];
-            pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', queryArr)
+            const queryArr = [username, bcryptPassword];
+            pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2) RETURNING _id', queryArr)
                 .then((result) => {
+                    res.locals.sessionId = result.rows[0]._id;
                     return next();
                 })
                 .catch((err) => next({
@@ -65,7 +66,6 @@ userController.createUser = (req, res, next) => {
 
 userController.startSession = (req, res, next) => {
     const today = new Date();
-    console.log('today is', today);
     pool.query(`INSERT INTO "sessions" ("cookie_id", "created_at") VALUES ($1, $2)`, [res.locals.sessionId, today], (err, result) => {
         if (err) {
             return next({

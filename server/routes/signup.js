@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const usercontroller = require("../controllers/userController");
+const userController = require("../controllers/userController");
 
-router.post("/", usercontroller.createUser, (req, res) => {
+router.post("/", userController.createUser, userController.startSession, userController.setSSIDCookie, (req, res) => {
     return res.json('Success: user created');
 });
 

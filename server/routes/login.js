@@ -14,6 +14,4 @@ router.post("/", userController.verifyUser, userController.startSession, userCon
     return res.status(200).json("verified");
 });
 
-
-
 module.exports = router;
