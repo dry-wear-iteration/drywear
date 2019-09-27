@@ -35,7 +35,7 @@ class List extends Component {
   }
 
   reloadItems() {
-    axios.get('/api/items')
+    axios.get('/api/items/' + this.props.currentUser)
     .then(response => {
       this.setState ({
         items: response.data

@@ -66,10 +66,10 @@ app.post('/api/items', upload.single('image'), itemsController.addItem, (req, re
     //res.status(201);
     //res.send();
     console.log('res.locals.imageUrl : ', res.locals.imageUrl );
-    res.json({ imageUrl: res.locals.imageUrl });
+    return res.json({ imageUrl: res.locals.imageUrl });
     
   } else {
-    res.sendStatus(409).json('no files');
+    return res.sendStatus(409).json('no files');
   }
 });
 
