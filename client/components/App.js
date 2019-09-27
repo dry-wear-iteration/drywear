@@ -68,6 +68,7 @@ class App extends Component {
       if (!this.state.todaysOutfitSelected) {
         axios.get('/api/outfits/' + this.state.currentUser)
         .then(response => {
+    
           this.setState ({
             outfits: response.data,
             rerender: false
@@ -99,19 +100,20 @@ class App extends Component {
       
             // Check if today's outfit is selected, change select state to true. 
             // This allows a user to see todays oufit.
-            if (!this.state.todaysOutfitSelected) {
-              axios.get('/api/outfits/' + currentUser)
-              .then(response => {
-                this.setState ({
-                  outfits: response.data,
-                  currentUser,
-                  loggedIn: isLoggedIn,
-                  rerender: true
-                })
-              }).catch(error => {
-                console.log(error, '- Get outfit selections');
-              })
-            }
+          //   if (!this.state.todaysOutfitSelected) {
+          //     axios.get('/api/outfits/' + currentUser)
+          //     .then(response => {
+          //       console.log(response.data);
+          //       this.setState ({
+          //         outfits: response.data,
+          //         currentUser,
+          //         loggedIn: isLoggedIn,
+          //         rerender: true
+          //       })
+          //     }).catch(error => {
+          //       console.log(error, '- Get outfit selections');
+          //     })
+          //   }
           } else {
             this.setState({
               loggedIn: isLoggedIn
